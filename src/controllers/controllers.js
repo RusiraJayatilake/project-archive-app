@@ -38,5 +38,16 @@ const readData = (req, res) => {
     });
 };
 
+const deleteData = (req, res) => {
+    const { id } = req.body;
+    const sqlCMD = 'DELETE FROM project WHERE id = ?';
+    db.run(sqlCMD, id, (err) => {
+        if (err){
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Data deleted successfully' });
+    });
+};
 
-module.exports = {writeData, readData};
+
+module.exports = {writeData, readData, deleteData};

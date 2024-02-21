@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { writeData, readData } = require('../controllers/controllers');
+const { writeData, readData, deleteData } = require('../controllers/controllers');
 const routes = express.Router();
 
 // Middleware
@@ -12,6 +12,7 @@ routes.use(express.urlencoded({ extended: true }))
 
 routes.post('/', writeData);
 routes.get('/projects', readData);
+routes.get('/delete/', deleteData);
 
 routes.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'public', 'index.html'))

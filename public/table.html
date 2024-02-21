@@ -53,10 +53,27 @@
                         <td class="px-6 py-4 whitespace-nowrap">${project.description}</td>
                         <td class="px-6 py-4 whitespace-nowrap"><a>${project.reference}</a></td>
                         <td class="px-6 py-4 whitespace-nowrap">${project.image}</td>
-                        <td class="px-6 py-4 whitespace-nowrap"><button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" id='delete-btn'>Delete</button></td>
+                        <td class="px-6 py-4 whitespace-nowrap"><input type="submit" value="Delete" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" id='delete-btn'></td>
                     `;
 
                     tableBody.appendChild(row);
+                });
+
+                document.getElementById('delete-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const projectId = button.dataset.id;
+
+                        // Send a delete request to the server
+                        fetch(`/app/delete/${projectId}`, { method: 'DELETE' })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete data');
+                                } else {
+                                    button.closest('tr').remove();    
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
                 });
             }).catch(err => console.error('Error fetching data: ', err));
         </script>
