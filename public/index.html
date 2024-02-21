@@ -3,9 +3,46 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>project shelf</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+            *{
+                font-family: "Caveat", cursive;
+            }
+
+            form {
+                width: 80%; 
+                margin: 0 auto; 
+                padding: 2rem; 
+            }
+
+            textarea{
+                resize: none;
+            }
+        </style>
     </head>
-    <body>
-        <h1>Application is running</h1>
+    <body class="bg-gray-100">
+        <h1 class="text-3xl font-bold m-8 mb-8">Project Shelf App</h1>
+    
+        <form action="/api/app" method="post" class="bg-white rounded-lg shadow-md">
+            <label for="title" class="block mb-2">Project Title:</label>
+            <input type="text" id="title" name="title" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" required>
+    
+            <label for="description" class="block mb-2">Project Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" required></textarea>
+    
+            <label for="reference" class="block mb-2">References (comma-separated URLs):</label>
+            <input type="text" id="reference" name="reference" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" required>
+    
+            <label for="images" class="block mb-2">Images (comma-separated URLs):</label>
+            <input type="text" id="images" name="images" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" required>
+    
+            <input type="submit" value="Submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        </form>
     </body>
 </html>
+
+
+

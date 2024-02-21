@@ -1,9 +1,10 @@
 const express = require('express');
-const appRoutes = require('./routes/routes');
-const app = express();
-const PORT = 1001;
+const routes = require('./routes/routes');
 
-app.use('/api/', appRoutes);
+const app = express();
+const PORT = 3000;
+
+app.use('/app/', routes);
 
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}/`)
