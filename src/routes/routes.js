@@ -5,7 +5,7 @@ const { writeData, readData } = require('../controllers/controllers');
 const routes = express.Router();
 
 // Middleware
-routes.use(express.static(path.join(__dirname, 'public')));
+routes.use(express.static(path.join(__dirname, '..', '..', 'public')));
 routes.use(express.json());
 routes.use(bodyParser.json());
 routes.use(express.urlencoded({ extended: true }))
@@ -17,7 +17,7 @@ routes.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'public', 'index.html'))
 });
 
-routes.get('/projects', (req, res) => {
+routes.get('/project', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'public', 'table.html'))
 });
 
