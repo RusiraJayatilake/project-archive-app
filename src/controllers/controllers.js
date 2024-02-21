@@ -1,4 +1,4 @@
-const db = require('../../config/database');
+const db = require('../config/database');
 
 const writeData = (req, res) => {
     const {title, description, reference, images} = req.body;
@@ -25,6 +25,7 @@ const readData = (req, res) => {
             rows.forEach((row) => {
                 // Push each row's data into the array
                 data.push({
+                    id: row.id,
                     title: row.title,
                     description: row.description,
                     reference: row.reference,

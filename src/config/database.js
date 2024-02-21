@@ -2,7 +2,7 @@ const path = require('path');
 const sqlite = require('sqlite3').verbose();
 
 // Create database
-const dbPath = path.join(__dirname, '../src/data', 'projectShelf.db');
+const dbPath = path.join(__dirname, '../data', 'projectShelf.db');
 const db = new sqlite.Database(dbPath);
 
 const createTable = `
