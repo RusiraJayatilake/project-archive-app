@@ -10,15 +10,16 @@ routes.use(express.json());
 routes.use(bodyParser.json());
 routes.use(express.urlencoded({ extended: true }))
 
-routes.post('/', writeData);
-routes.get('/projects', readData);
-routes.get('/delete/', deleteData);
+routes.post('/api/add', writeData);
+routes.get('/api/projects', readData);
+routes.delete('/api/delete/:id', deleteData);
 
-routes.get('/', (req, res) => {
+// Get Requests
+routes.get('/api/add', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'public', 'index.html'))
 });
 
-routes.get('/project', (req, res) => {
+routes.get('/projects', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'public', 'table.html'))
 });
 

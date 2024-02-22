@@ -1,15 +1,15 @@
 const db = require('../config/database');
 
 const writeData = (req, res) => {
-    const {title, description, reference, images} = req.body;
+    const {title, description, reference} = req.body;
 
     // INSERT data to table
-    const sql = 'INSERT INTO project (title, description, reference, images) VALUES (?, ?, ?, ?)';
-    db.run(sql, [title, description, reference, images], (err) => {
+    const sql = 'INSERT INTO project (title, description, reference) VALUES (?, ?, ?)';
+    db.run(sql, [title, description, reference], (err) => {
         if (err){
             return res.status(500).json({ error: err.message });
         } else {
-            res.json({ message: 'Data added successfully', dataId: this.lastID });
+            res.json({ message: 'Data added successfully' });
         }
     });
 };
@@ -23,13 +23,11 @@ const readData = (req, res) => {
             // Create an array to hold the data
             const data = [];
             rows.forEach((row) => {
-                // Push each row's data into the array
                 data.push({
                     id: row.id,
                     title: row.title,
                     description: row.description,
                     reference: row.reference,
-                    images: row.images
                 });
             });
         
@@ -39,7 +37,7 @@ const readData = (req, res) => {
 };
 
 const deleteData = (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params; 
     const sqlCMD = 'DELETE FROM project WHERE id = ?';
     db.run(sqlCMD, id, (err) => {
         if (err){
