@@ -5,23 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Add Projects</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
-            *{
-                font-family: "Caveat", cursive;
-            }
-
-            form {
-                width: 80%; 
-                margin: 0 auto; 
-                padding: 2rem; 
-            }
-
-            textarea{
-                resize: none;
-            }
-        </style>
+        <link href="./static/css/index.css" rel="stylesheet">
     </head>
     <body class="bg-gray-100">
         <h1 class="text-3xl font-bold m-8 mb-8">Add Projects</h1>
@@ -41,36 +25,6 @@
 
         <a href="/app/projects" class="py-6">Project List</a>
 
-        <script>
-            document.getElementById('projectForm').addEventListener('submit', (event) => {
-                event.preventDefault(); 
-
-                const formData = {
-                    title: document.getElementById('title').value,
-                    description: document.getElementById('description').value,
-                    reference: document.getElementById('reference').value
-                };
-
-                fetch('/app/api/add', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Data added successfully');
-                    clearForm();
-                }).catch(error => console.error('Error:', error));
-            });
-
-            function clearForm() {
-                // Reset input field values to empty strings
-                document.getElementById('title').value = '';
-                document.getElementById('description').value = '';
-                document.getElementById('reference').value = '';
-            }
-        </script>
+        <script src="./static/js/index.js"></script>
     </body>
 </html>

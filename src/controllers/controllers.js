@@ -1,49 +1,53 @@
-const db = require('../config/database');
+const { db, writeProjectData, readProjectData, deleteProjectData} = require('../config/sqliteDB');
 
-const writeData = (req, res) => {
-    const {title, description, reference} = req.body;
-
-    // INSERT data to table
-    const sql = 'INSERT INTO project (title, description, reference) VALUES (?, ?, ?)';
-    db.run(sql, [title, description, reference], (err) => {
-        if (err){
-            return res.status(500).json({ error: err.message });
-        } else {
-            res.json({ message: 'Data added successfully' });
-        }
+const writeData = ({ title, description, reference }) => {
+    return new Promise((resolve, reject) => {
+        // INSERT data to table
+        const sql = writeProjectData();
+        db.run(sql, [title, description, reference], (err) => {
+            if (err){
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
     });
 };
 
-const readData = (req, res) => {
-    const sqlRead = 'SELECT * FROM project';
-    db.all(sqlRead, [], (err, rows) => {
-        if(err){
-            return res.status(500).json({ error: err.message });
-        } else {
-            // Create an array to hold the data
-            const data = [];
-            rows.forEach((row) => {
-                data.push({
-                    id: row.id,
-                    title: row.title,
-                    description: row.description,
-                    reference: row.reference,
+const readData = () => {
+    return new Promise((resolve, reject) => {
+        const sql = readProjectData();
+        db.all(sql, [], (err, rows) => {
+            if(err){
+                reject(err);
+            } else {
+                // Create an array to hold the data
+                const data = [];
+                rows.forEach((row) => {
+                    data.push({
+                        id: row.id,
+                        title: row.title,
+                        description: row.description,
+                        reference: row.reference,
+                    });
                 });
-            });
-        
-            res.json(data);
-        }
+            
+                resolve(data);
+            }
+        });
     });
 };
 
-const deleteData = (req, res) => {
-    const { id } = req.params; 
-    const sqlCMD = 'DELETE FROM project WHERE id = ?';
-    db.run(sqlCMD, id, (err) => {
-        if (err){
-            return res.status(500).json({ error: err.message });
-        }
-        res.json({ message: 'Data deleted successfully' });
+const deleteData = ({ id }) => {
+    return new Promise((resolve, reject) => {
+        const sql = deleteProjectData();
+        db.run(sql, id, (err) => {
+            if (err){
+                reject(err);
+            } else{
+                resolve()
+            }
+        });
     });
 };
 

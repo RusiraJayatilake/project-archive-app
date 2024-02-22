@@ -25,5 +25,18 @@ db.run(createTable, function(err) {
 });
 
 
-module.exports = db;
+const writeProjectData = () => {
+    return 'INSERT INTO project (title, description, reference) VALUES (?, ?, ?)';
+}
+
+const readProjectData = () => {
+    return 'SELECT * FROM project';
+}
+
+const deleteProjectData = () => {
+    return 'DELETE FROM project WHERE id = ?';
+}
+
+
+module.exports = { db, writeProjectData, readProjectData, deleteProjectData} ;
 

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+*{
+    font-family: "Caveat", cursive;
+}
+
+form {
+    width: 80%; 
+    margin: 0 auto; 
+    padding: 2rem; 
+}
+
+textarea{
+    resize: none;
+}
+
+table {
+    width: 90%; 
+    margin: 0 auto;
+}

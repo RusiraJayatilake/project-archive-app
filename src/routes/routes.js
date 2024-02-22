@@ -10,12 +10,40 @@ routes.use(express.json());
 routes.use(bodyParser.json());
 routes.use(express.urlencoded({ extended: true }))
 
-routes.post('/api/add', writeData);
-routes.get('/api/projects', readData);
-routes.delete('/api/delete/:id', deleteData);
+// Add
+routes.post('/api/add', (req, res) =>{
+    const {title, description, reference} = req.body;
+    writeData({ title, description, reference })
+    .then(() => {
+        res.json({ message: 'Data added successfully' })
+    }).catch((err) => {
+        res.status(500).json({ error: err.message });
+    })
+});
+
+// Read
+routes.get('/api/projects', (req, res) => {
+    readData()
+    .then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.status(500).json({ error: err.message });
+    });
+});
+
+// Delete
+routes.delete('/api/delete/:id', (req, res) =>{
+    const { id } = req.params;     
+    deleteData({ id })
+    .then(() => {
+        res.json({ message: 'Data deleted successfully' });
+    }).catch((err) => {
+        res.status(500).json({ error: err.message });
+    })
+});
 
 // Get Requests
-routes.get('/api/add', (req, res) => {
+routes.get('/add', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'public', 'index.html'))
 });
 
